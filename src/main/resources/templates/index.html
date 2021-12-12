@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+ <h1 class="hello">Список покупок</h1>
+
+ <div style="display: flex; width: 900px; justify-content: space-between; align-items: center">
+     <p style="width: 500px">Описание товара</p>
+     <div style="width: 100px">
+         <p> Купленный </p>
+     </div>
+     <p style="width: 200px;" class="item-info">Дата добавления</p>
+     <p style="width: 100px;"></p>
+ </div>
+
+ <div th:each="purchase : ${purchases}">
+    <div style="display: flex; width: 900px; justify-content: space-between; align-items: center" class="content-wrapper">
+        <p style="width: 500px" th:text="${purchase.getName()}"></p>
+        <div style="width: 100px">
+            <input th:attr="data-purchase-id=${purchase.getId()}"
+                   th:checked="${purchase.isBought()}"
+                   th:disabled="${purchase.isBought()}"
+                   type="checkbox"
+                   class="checkbox"/>
+        </div>
+        <p style="width: 200px;" class="item-info" th:text="${'Покупка от ' + purchase.getAddingDate()}"></p>
+        <button class="remove-btn" th:attr="data-delete-id=${purchase.getId()}" style="width: 100px;">Удалить</button>
+    </div>
+ </div>
+</body>
+</html>
